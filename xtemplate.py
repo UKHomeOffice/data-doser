@@ -69,10 +69,10 @@ def get_src_number(i=1, pad=6):
     return str(i).zfill(pad)
 
 
-def get_initial_values():
+def get_initial_values(startindex):
     values = {
         'loc_11_prefix': 'GBPM',
-        'loc_11_number': get_loc_11(number=1),
-        'src_number': get_src_number(i=171)
+        'loc_11_number': get_loc_11(number=startindex),
+        'src_number': get_src_number(i=startindex)
     }
     return values

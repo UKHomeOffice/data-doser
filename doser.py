@@ -43,7 +43,7 @@ def main(args):
     duration = int(args.duration)
     chunks = int(args.chunks)
     number_of_files = int(args.numfiles)
-    values = xtemplate.get_initial_values()
+    values = xtemplate.get_initial_values(args.startindex)
     for chunk in range(chunks):
         c = xscarymaths.random_restricted_composition(duration, number_of_files, 1, duration)
         bag_o_random = c
