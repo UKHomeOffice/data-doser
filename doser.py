@@ -9,14 +9,13 @@ __license__ = "MIT"
 
 import argparse
 from logzero import logger
-import string
 import time
 import xtemplate
 import xs3
 import xscarymaths
 
 
-def do_a_chunk(args, chunk_number, duration, bag_o_random, values):
+def do_a_chunk(args, chunk_number, bag_o_random, values):
     logger.debug(f"""doing chunk: {chunk_number}""")
     file_number = 0
     for random_time in bag_o_random:
@@ -24,18 +23,17 @@ def do_a_chunk(args, chunk_number, duration, bag_o_random, values):
             logger.debug(f"""Sleeping for {random_time}""")
             time.sleep(random_time)
         file_number += 1
-        filename = f"""{args.prefix}-{chunk_number}-{file_number}.txt"""
-        t  = xtemplate.get_template_from_file(args.template_file)
+        target_filename = f"""{args.prefix}-{chunk_number}-{file_number}"""
+        t = xtemplate.get_template_from_file(args.template_file)
         new_record = xtemplate.process_template(t, values)
-        logger.debug(new_record)
-        xs3.push_to_s3(args.bucket, args.subfolder, new_record, filename)
-        sn  = int(values['src_number'])
+        xs3.push_to_s3(args.bucket, args.subfolder, args.kmskey, new_record, target_filename)
+        sn = int(values['src_number'])
         sn += 1
-        loc =  int(values['loc_11_number'])
+        loc = int(values['loc_11_number'])
         loc += 1
         values['src_number'] = sn
         values['loc_11_number'] = loc
-        logger.debug(f"""completed file number: {filename}""")
+        logger.debug(f"""completed file number: {target_filename}""")
     logger.debug(f"""completed chunk: {chunk_number}""")
     return values
 
@@ -45,27 +43,25 @@ def main(args):
     duration = int(args.duration)
     chunks = int(args.chunks)
     number_of_files = int(args.numfiles)
-    template_file = args.template_file
-    #logger.debug(f"""duration: {duration} in {chunks} chunks """)
     values = xtemplate.get_initial_values()
     for chunk in range(chunks):
-        #logger.debug(f"""chunk: {chunk:>4}""")
-        c = xscarymaths.random_restricted_composition(duration, number_of_files, 1, duration) 
+        c = xscarymaths.random_restricted_composition(duration, number_of_files, 1, duration)
         bag_o_random = c
-        do_a_chunk(args, chunk, duration, bag_o_random, values)
+        do_a_chunk(args, chunk, bag_o_random, values)
 
 
 if __name__ == "__main__":
     """ This is executed when run from the command line """
     parser = argparse.ArgumentParser()
-    parser.add_argument("-d", "--duration", action="store", dest="duration", default=100)
-    parser.add_argument("-c", "--chunks", action="store", dest="chunks", default=5)
-    parser.add_argument("-f", "--numfiles", action="store", dest="numfiles", default=10)
+    parser.add_argument("-d", "--duration", action="store", dest="duration", default=5)
+    parser.add_argument("-c", "--chunks", action="store", dest="chunks", default=2)
+    parser.add_argument("-f", "--numfiles", action="store", dest="numfiles", default=2)
+    parser.add_argument("-i", "--startindex", action="store", dest="startindex", default=1)
     parser.add_argument("-t", "--template", action="store", dest="template_file", default='templates/template1.txt')
-    parser.add_argument("-b", "--bucket", action="store", dest="bucket", default='s3monster')
-    parser.add_argument("-s", "--subfolder", action="store", dest="subfolder", default='/')
+    parser.add_argument("-b", "--bucket", action="store", dest="bucket", default='cto-aftc-sc')
+    parser.add_argument("-s", "--subfolder", action="store", dest="subfolder", default='gw/opt/queue/pre_emails/')
     parser.add_argument("-m", "--mode", action="store", dest="mode", default='random_delay')
-    parser.add_argument("-p", "--prefix", action="store", dest="prefix", default='MSG')
+    parser.add_argument("-p", "--prefix", action="store", dest="prefix", default='msg')
+    parser.add_argument("-k", "--kmskey", action="store", dest="kmskey", required=True)
     args = parser.parse_args()
     main(args)
-

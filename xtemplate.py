@@ -9,6 +9,7 @@ __license__ = "MIT"
 
 import string
 
+
 def get_template_from_file(template_filename):
     """Return the template string from a file."""
     f = open(template_filename)
@@ -22,7 +23,7 @@ def process_template(template, values):
 
 
 def get_template(values):
-    t = string.Template( """UNB+UNOB:2+SGNV+COASTS+191021:1052+SRC-$src_number'
+    t = string.Template("""UNB+UNOB:2+SGNV+COASTS+191021:1052+SRC-$src_number'
 UNH+ZD19052044+CUSCAR:D:95B:UN:LOT10'
 BGM+85+ZD19052044+9'
 DTM+137:201910210852:203'
@@ -59,23 +60,19 @@ UNZ+1+SRC-${src_number}'""")
 
 def get_loc_11(number=1):
     """Turn the the number for loc_11 into a string"""
-    n =  str(number)
+    n = str(number)
     return n
 
 
 def get_src_number(i=1, pad=6):
     """This one gets zfilled by a pad of default 6 0."""
-    return str(i).zfill(pad)   
+    return str(i).zfill(pad)
 
 
 def get_initial_values():
     values = {
-              'loc_11_prefix' : 'GBPM',
-              'loc_11_number' : get_loc_11(number=1),
-              'src_number' : get_src_number(i=171)
-             }
+        'loc_11_prefix': 'GBPM',
+        'loc_11_number': get_loc_11(number=1),
+        'src_number': get_src_number(i=171)
+    }
     return values
-
-
-if __name__ == "__main__":
-    main()

@@ -1,3 +1,47 @@
+Return-Path: <philbart@mac.com>
+Received: from st43p00im-ztbu10063601.me.com (st43p00im-ztbu10063601.me.com [17.58.63.174])
+ by inbound-smtp.eu-west-1.amazonaws.com with SMTP id 0nhet85icde0no39jtj49c82nle0t47in5ou3no1
+ for s3@maclon.co.uk;
+ Mon, 28 Oct 2019 09:19:02 +0000 (UTC)
+X-SES-Spam-Verdict: PASS
+X-SES-Virus-Verdict: PASS
+Received-SPF: pass (spfCheck: domain of mac.com designates 17.58.63.174 as permitted sender) client-ip=17.58.63.174; envelope-from=philbart@mac.com; helo=st43p00im-ztbu10063601.me.com;
+Authentication-Results: amazonses.com;
+ spf=pass (spfCheck: domain of mac.com designates 17.58.63.174 as permitted sender) client-ip=17.58.63.174; envelope-from=philbart@mac.com; helo=st43p00im-ztbu10063601.me.com;
+ dkim=pass header.i=@mac.com;
+ dmarc=pass header.from=mac.com;
+X-SES-RECEIPT: AEFBQUFBQUFBQUFFc0F3b2REZng4dFdpTDJVcXJEOFNUQVpiUmRRK3RkZ2ZoVVdVdmRnTldKa0tuQ20wMk04d3R2UmhpbVJyZzczTmVCNDBxWTFLeWgvOVJXZDd0cEhnWExZRzZDSUttbE9KbkpUVUhmUEhCeW44M1VzOUJ3L0JkeHlwYkU0ZHNmakdLb1k3WkdTR0R3QTh4eGpCbEhDd1Y5SHFYbUZIQi9UTHFvcndLalc3aGdxMDRlSXB4N1RxVzFWdVZVYW5rdUZLNFI4Z1lxMFFKbjJZeEpSOEJZd2MybVJ6RGFPbkg1Mm9CelB2dWE0R3R2a1V5OHlFZFFsWXpCR2preEVhZHVuaTYySFFzcUlHZW1tL0Y0czY1TXhPdzgyelY0N2NMMzh3MkVzSlJyN2MyQmc9PQ==
+X-SES-DKIM-SIGNATURE: a=rsa-sha256; q=dns/txt; b=apNpBRanWKaLsnTfNhkSPQjIFfO0JIBZc5L96zzogq6dmRYQbspG5CIH2NWrscMnc4Fr9OvRrTsHbDmmlq0UQyfml3sbqCsOROvmYbFycrarn5aF0W9twuehEt7uNvoPr8CDaOcc4p40ZqP4Tc7uJ5HLm3ou9KJfa3UIgU09+G8=; c=relaxed/simple; s=ihchhvubuqgjsxyuhssfvqohv7z3u4hn; d=amazonses.com; t=1572254342; v=1; bh=PoJbvf5uLI4pt9WpJWiq6A1XCLDSRA6lAHq8Rxvlkto=; h=From:To:Cc:Bcc:Subject:Date:Message-ID:MIME-Version:Content-Type:X-SES-RECEIPT;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mac.com; s=1a1hai;
+	t=1572254340; bh=PoJbvf5uLI4pt9WpJWiq6A1XCLDSRA6lAHq8Rxvlkto=;
+	h=From:Content-Type:Subject:Message-Id:Date:To;
+	b=WlvdczXG2PRYqkh6JGLkSuY4YZ2nY6dakwcYfJ91l8mZX0m9H58JFFdofLjT2/LUD
+	 i45RZ2ts3Wp+2m9UdqNY2yMwkDaD1I46Lx5xssu5cr+o+gp19rjTOl8/7nKjVt9wNU
+	 5YO/b/VE0jeMnKv91pFc6v2viRB2Q5dEfJs8pNtqY4plgAo3PFr/9YWmXTrDETNBd5
+	 ocJXR8I+p2gkuLmCrJ8DQfUWtI8ut+OrJs9g+7d4NIb9ycLM7T4UZXEk7NRz5+7Tvp
+	 5N72h5JwJWlTWqxb8g9PEho+hhQ0krzUxIwH30Z912vt75JxjTuJPALdskAnhZIfBQ
+	 KvRQjbJ+JRCKw==
+Received: from [192.168.86.22] (cpc112503-pres22-2-0-cust462.18-3.cable.virginm.net [80.194.137.207])
+	by st43p00im-ztbu10063601.me.com (Postfix) with ESMTPSA id 2F8AB70083D
+	for <s3@maclon.co.uk>; Mon, 28 Oct 2019 09:19:00 +0000 (UTC)
+From: Phil Barton <philbart@mac.com>
+Content-Type: text/plain;
+	charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline; filename=filename.txt
+Mime-Version: 1.0 (Mac OS X Mail 13.0 \(3594.4.19\))
+Subject: Manifest
+Message-Id: <76D279EF-85EC-4354-B97A-6F8362AAA54B@mac.com>
+Date: Mon, 28 Oct 2019 09:18:58 +0000
+To: s3@maclon.co.uk
+X-Mailer: Apple Mail (2.3594.4.19)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:,, definitions=2019-10-28_04:,,
+ signatures=0
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=1 malwarescore=0
+ phishscore=0 bulkscore=0 spamscore=0 clxscore=1015 mlxscore=0
+ mlxlogscore=516 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1908290000 definitions=main-1910280093
+
 UNB+UNOB:2+SGNV+COASTS+191021:1052+SRC-$src_number'
 UNH+ZD19052044+CUSCAR:D:95B:UN:LOT10'
 BGM+85+ZD19052044+9'
