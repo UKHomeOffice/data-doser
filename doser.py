@@ -26,13 +26,11 @@ def do_a_chunk(args, chunk_number, bag_o_random, values):
         target_filename = f"""{args.prefix}-{chunk_number}-{file_number}"""
         t = xtemplate.get_template_from_file(args.template_file)
         new_record = xtemplate.process_template(t, values)
-        xs3.push_to_s3(args.bucket, args.subfolder, args.kmskey, new_record, target_filename)
-        sn = int(values['src_number'])
-        sn += 1
-        loc = int(values['loc_11_number'])
-        loc += 1
-        values['src_number'] = sn
-        values['loc_11_number'] = loc
+        if args.debug:
+            print(new_record)
+        else:
+            xs3.push_to_s3(args.aws_profile, args.bucket, args.subfolder, args.kmskey, new_record, target_filename)
+        xtemplate.update_values(values)
         logger.debug(f"""completed file number: {target_filename}""")
     logger.debug(f"""completed chunk: {chunk_number}""")
     return values
@@ -63,5 +61,7 @@ if __name__ == "__main__":
     parser.add_argument("-m", "--mode", action="store", dest="mode", default='random_delay')
     parser.add_argument("-p", "--prefix", action="store", dest="prefix", default='msg')
     parser.add_argument("-k", "--kmskey", action="store", dest="kmskey", required=True)
+    parser.add_argument("--debug", action="store_true", help='Output message to sysout rather than s3')
+    parser.add_argument("--aws-profile", action="store", dest="aws_profile", default="default")
     args = parser.parse_args()
     main(args)

@@ -8,7 +8,8 @@ __version__ = "0.1.0"
 __license__ = "MIT"
 
 import string
-
+import random
+from datetime import datetime, timedelta
 
 def get_template_from_file(template_filename):
     """Return the template string from a file."""
@@ -70,9 +71,35 @@ def get_src_number(i=1, pad=6):
 
 
 def get_initial_values(startindex):
+    now = datetime.now()
     values = {
         'loc_11_prefix': 'GBPM',
         'loc_11_number': get_loc_11(number=startindex),
-        'src_number': get_src_number(i=startindex)
+        'src_number': get_src_number(i=startindex),
+        'ship' : f"TEST SHIP {random_string(size=10)}",
+        'send_date' :  get_date(now),
+        'send_time' : get_time(now),
+        'msg_ref' : f"MREF{random_string(size=10)}"
     }
+    print(f"Ship: {values['ship']}")
     return values
+
+def get_date(mydate):
+    return mydate.strftime("%y%m%d")
+
+def get_time(mydate):
+    return mydate.strftime("%H%M")
+
+def random_string(size=6, chars=string.ascii_uppercase + string.digits):
+    return ''.join(random.choice(chars) for x in range(size))
+
+def update_values(values):
+    sn = int(values['src_number'])
+    sn += 1
+    values['src_number'] = get_src_number(sn)
+    now = datetime.now()
+    values['ship'] = f"TEST SHIP {random_string(size=10)}"
+    values['send_date'] = get_date(now)
+    values['send_time'] = get_time(now)
+    values['msg_ref'] = f"MREF{random_string(size=10)}"
+    print(f"Ship: {values['ship']}")
