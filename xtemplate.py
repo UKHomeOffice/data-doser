@@ -81,7 +81,6 @@ def get_initial_values(startindex):
         'send_time' : get_time(now),
         'msg_ref' : f"MREF{random_string(size=10)}"
     }
-    print(f"Ship: {values['ship']}")
     return values
 
 def get_date(mydate):
@@ -102,4 +101,3 @@ def update_values(values):
     values['send_date'] = get_date(now)
     values['send_time'] = get_time(now)
     values['msg_ref'] = f"MREF{random_string(size=10)}"
-    print(f"Ship: {values['ship']}")

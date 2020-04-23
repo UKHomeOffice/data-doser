@@ -26,6 +26,7 @@ def do_a_chunk(args, chunk_number, bag_o_random, values):
         target_filename = f"""{args.prefix}-{chunk_number}-{file_number}"""
         t = xtemplate.get_template_from_file(args.template_file)
         new_record = xtemplate.process_template(t, values)
+        print(f"Ship: {values['ship']}")
         if args.debug:
             print(new_record)
         else:
